@@ -14,4 +14,4 @@ Decided what to do and set up the project.
 
 ## Thoughts and questions
 
-None
+Last time I had to drop out because of some external factors. This time there shouldn't be any problems but I picked a safe topic for the project just in case.
