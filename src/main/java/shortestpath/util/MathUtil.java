@@ -1,5 +1,9 @@
 package shortestpath.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
+
 /**
  * Constants and math functions.
  * 
@@ -20,8 +24,9 @@ public class MathUtil {
      * @return rounded value
      */
     public static double round(double value, int decimalPlaces) {
-        // TODO
-        throw new UnsupportedOperationException();
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(decimalPlaces, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
     
     /**
@@ -33,7 +38,24 @@ public class MathUtil {
      * @return true if equal to given amount of decimal places otherwise false
      */
     public static boolean equals(double a, double b, int decimalPlaces) {
-        // TODO
-        throw new UnsupportedOperationException();
+        BigDecimal bdA = BigDecimal.valueOf(a);
+        bdA = bdA.setScale(decimalPlaces, RoundingMode.FLOOR);      
+        BigDecimal bdB = BigDecimal.valueOf(b);
+        bdB = bdB.setScale(decimalPlaces, RoundingMode.FLOOR);      
+        return bdA.equals(bdB);
+    }
+    
+    /**
+     * Calculate the average (arithmetic mean) of the values in the list.
+     * 
+     * @param values 
+     * @return average of the values
+     */
+    public static double average(List<Long> values) {
+        long sum = 0;
+        for (Long value : values) {
+            sum += value;
+        }
+        return sum / (double) values.size();
     }
 }

@@ -1,35 +1,36 @@
 package shortestpath.util;
 
 import java.util.List;
+import shortestpath.benchmark.Scenario;
+import shortestpath.benchmark.Test;
 import shortestpath.domain.Graph;
 import shortestpath.domain.Node;
 
 /**
- * Parses the contents of a .map file.
+ * Parses the contents of a .map and .map.scen files.
  * 
  * @author Jake
  */
 public class Parser {
 
     private static final int MAP_START_OFFSET = 4;
-    private static final double diagonalCost = 1.4142135623730950488016887242097;
 
     /**
      * Builds a graph from the contents of a .map file
      * 
-     * @param grid contents of a .map file
+     * @param data contents of a .map file
      * @return graph
      */
-    public static Graph buildGraph(List<String> grid) {
-        int height = getValue(grid.get(1), 7);
-        int width = getValue(grid.get(2), 6);
+    public static Graph buildGraph(List<String> data) {
+        int height = getValue(data.get(1), 7);
+        int width = getValue(data.get(2), 6);
         Graph graph = new Graph();
 
         for (int i = MAP_START_OFFSET; i < height + MAP_START_OFFSET; i++) {
             int y = i - MAP_START_OFFSET;
             for (int x = 0; x < width; x++) {
-                char startChar = getCharAt(grid, x, y);
-                if (startChar == 'T') {
+                char startChar = getCharAt(data, x, y);
+                if (startChar != '.') {
                     continue;
                 }
                 for (Direction direction : Direction.values()) {
@@ -38,15 +39,22 @@ public class Parser {
                     if (endX < 0 || endX >= width || endY < 0 || endY >= height) {
                         continue;
                     }
-                    char endChar = getCharAt(grid, endX, endY);
-                    if (endChar == 'T' || endChar == '@') {
+                    char endChar = getCharAt(data, endX, endY);
+                    if (endChar != '.') {
                         continue;
                     }
                     Node start = new Node(x, y);
                     Node end = new Node(endX, endY);
                     double cost = 1;
-                    if (direction.isDiagonal) {
-                        cost = diagonalCost;
+                    if (direction.diagonal) {
+                        char a = getCharAt(data, endX, y);
+                        char b = getCharAt(data, x, endY);
+                        // Makes sure we are not diagonally cutting trough walls
+                        if (a != '.' || b != '.') {
+                            continue;
+                        }
+                        // Using square root of two for cost of diagonal movement
+                        cost = MathUtil.SQRT_OF_TWO;
                     }
                     graph.addEdge(start, end, cost);
                     graph.addEdge(end, start, cost);
@@ -55,7 +63,36 @@ public class Parser {
         }
         return graph;
     }
-
+    
+    /**
+     * Builds a scenario for benchmarking from contents of .map.scen file
+     * 
+     * @param scenarioData contents of a .map.scen file
+     * @param mapData contents of a .map file
+     * @return scenario that can be used to run benchmarks
+     */
+    public static Scenario buildScenario(List<String> scenarioData, List<String> mapData) {
+        if (scenarioData.size() < 2) {
+            return null;
+        }
+        String mapName = scenarioData.get(1).split("\t")[1];
+        Scenario scenario = new Scenario(mapName, mapData);
+        
+        for (int i = 1; i < scenarioData.size(); i++) {
+            String[] values = scenarioData.get(i).split("\t");
+            int startX = Integer.parseInt(values[4]);
+            int startY = Integer.parseInt(values[5]);
+            int endX = Integer.parseInt(values[6]);
+            int endY = Integer.parseInt(values[7]);
+            double optimalLength = Double.parseDouble(values[8]);
+            Node start = new Node(startX, startY);
+            Node end = new Node(endX, endY);
+            Test test = new Test(start, end, optimalLength);
+            scenario.addTest(test);
+        }
+        return scenario;
+    }
+    
     private static int getValue(String line, int index) {
         String substring = line.substring(index, line.length());
         return Integer.parseInt(substring);
@@ -65,25 +102,25 @@ public class Parser {
         return grid.get(y + MAP_START_OFFSET).charAt(x);
     }
     
-    enum Direction {
+    private enum Direction {
         UP(0, -1, false),
         DOWN(0, 1, false),
         LEFT(-1, 0, false),
         RIGHT(1, 0, false),
-        TOP_RIGHT(1, -1, true),
+        UP_RIGHT(1, -1, true),
         DOWN_RIGHT(1, 1, true),
         DOWN_LEFT(-1, 1, true),
-        TOP_LEFT(-1, -1, true);
+        UP_LEFT(-1, -1, true);
         
         
         private int xDirection;
         private int yDirection;
-        private boolean isDiagonal;
+        private boolean diagonal;
 
-        private Direction(int xDirection, int yDirection, boolean isDiagonal) {
+        private Direction(int xDirection, int yDirection, boolean diagonal) {
             this.xDirection = xDirection;
             this.yDirection = yDirection;
-            this.isDiagonal = isDiagonal;
+            this.diagonal = diagonal;
         }
 
         public int getxDirection() {
@@ -94,8 +131,8 @@ public class Parser {
             return yDirection;
         }
 
-        public boolean isIsDiagonal() {
-            return isDiagonal;
+        public boolean isDiagonal() {
+            return diagonal;
         }   
         
     }
