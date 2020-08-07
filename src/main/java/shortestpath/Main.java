@@ -15,7 +15,7 @@ public class Main {
         List<String> contents = FileReader.read(new File("maps/arena.map"));
         Graph graph = Parser.buildGraph(contents);
         Dijkstra dijkstra = new Dijkstra();
-        int length = dijkstra.search(graph, new Node(3, 1), new Node(23, 1));
+        double length = dijkstra.search(graph, new Node(1, 13), new Node(4, 12));
         System.out.println("Length of shortest path is: " + length);
     }
 }

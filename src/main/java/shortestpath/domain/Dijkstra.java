@@ -18,12 +18,12 @@ public class Dijkstra {
      * @param end end point of the path
      * @return shortest path from start to end
      */
-    public int search(Graph graph, Node start, Node end) {
+    public double search(Graph graph, Node start, Node end) {
         PriorityQueue<Edge> queue = new PriorityQueue<>(10);
         HashMap<Node, Boolean> visited = new HashMap<>();
-        HashMap<Node, Integer> distance = new HashMap<>();
+        HashMap<Node, Double> distance = new HashMap<>();
         
-        distance.put(start, 0);
+        distance.put(start, 0.0);
         queue.add(new Edge(start, 0));
         
         while (!queue.isEmpty()) {
@@ -33,14 +33,14 @@ public class Dijkstra {
             }
             visited.put(node, true);
             for (Edge edge : graph.getNeighbors(node)) {
-                int currentDistance = distance.getOrDefault(edge.getEnd(), 10000);
-                int newDistance = distance.get(node) + edge.getWeight();
+                double currentDistance = distance.getOrDefault(edge.getEnd(), 10000.0);
+                double newDistance = distance.get(node) + edge.getCost();
                 if (newDistance < currentDistance) {
                     distance.put(edge.getEnd(), newDistance);
                     queue.add(new Edge(edge.getEnd(), newDistance));
                 }
             }
         }
-        return distance.getOrDefault(end, -1);
+        return distance.getOrDefault(end, -1.0);
     }
 }

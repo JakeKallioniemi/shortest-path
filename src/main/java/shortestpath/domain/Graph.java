@@ -25,14 +25,14 @@ public class Graph {
      *
      * @param start starting node
      * @param end end node
-     * @param weight weight of the edge
+     * @param cost cost of the edge
      */
-    public void addEdge(Node start, Node end, int weight) {
+    public void addEdge(Node start, Node end, double cost) {
         if (!edges.containsKey(start)) {
             edges.put(start, new HashSet<>());
         }
         Set<Edge> neighbors = edges.get(start);
-        Edge edge = new Edge(end, weight);
+        Edge edge = new Edge(end, cost);
         neighbors.add(edge);
     }
 

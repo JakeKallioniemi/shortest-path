@@ -1,33 +1,35 @@
 package shortestpath.domain;
 
+import java.util.Objects;
+
 /**
- * Represents a graphs edge with endpoint and weight.
+ * Represents a graphs edge with endpoint and cost.
  * 
  * @author Jake
  */
 public class Edge implements Comparable<Edge> {
 
     private final Node end;
-    private final int weight;
+    private final double cost;
 
-    public Edge(Node end, int weight) {
+    public Edge(Node end, double cost) {
         this.end = end;
-        this.weight = weight;
+        this.cost = cost;
     }
 
     public Node getEnd() {
         return end;
     }
 
-    public int getWeight() {
-        return weight;
+    public double getCost() {
+        return cost;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + end.hashCode();
-        hash = 41 * hash + weight;
+        hash = 59 * hash + Objects.hashCode(this.end);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.cost) ^ (Double.doubleToLongBits(this.cost) >>> 32));
         return hash;
     }
 
@@ -43,12 +45,12 @@ public class Edge implements Comparable<Edge> {
             return false;
         }
         final Edge edge = (Edge) other;
-        return this.end.equals(edge.end) && this.weight == edge.weight;
+        return this.end.equals(edge.end) && this.cost == edge.cost;
     }
 
     @Override
     public int compareTo(Edge other) {
-        return this.weight - other.weight;
-    }
+        return this.cost > other.cost ? 1 : -1;
+    }   
 
 }

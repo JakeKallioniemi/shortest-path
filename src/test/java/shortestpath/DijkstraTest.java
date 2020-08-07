@@ -13,8 +13,10 @@ import shortestpath.util.Parser;
 
 public class DijkstraTest {
 
+    private static double ACCURACY = 0.000001;
+    
     private Graph graph;
-
+    
     @Before
     public void setUp() throws IOException {
         graph = Parser.buildGraph(FileReader.read(new File("maps/test.map")));
@@ -23,15 +25,15 @@ public class DijkstraTest {
     @Test
     public void findsPath() {
         Dijkstra dijkstra = new Dijkstra();
-        int pathLength = dijkstra.search(graph, new Node(1, 1), new Node(3, 1));
-        assertEquals(6, pathLength);
+        double pathLength = dijkstra.search(graph, new Node(1, 1), new Node(3, 1));
+        assertEquals(6, pathLength, ACCURACY);
     }
 
     @Test
     public void failsWhenNoPath() {
         Dijkstra dijkstra = new Dijkstra();
-        int pathLength = dijkstra.search(graph, new Node(1, 1), new Node(4, 1));
-        assertEquals(-1, pathLength);
+        double pathLength = dijkstra.search(graph, new Node(1, 1), new Node(4, 1));
+        assertEquals(-1, pathLength, ACCURACY);
     }
 
 }
