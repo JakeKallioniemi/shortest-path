@@ -5,10 +5,11 @@ import shortestpath.benchmark.Scenario;
 import shortestpath.benchmark.Test;
 import shortestpath.domain.Graph;
 import shortestpath.domain.Node;
+import shortestpath.domain.PathFinder;
 
 /**
  * Parses the contents of a .map and .map.scen files.
- * 
+ *
  * @author Jake
  */
 public class Parser {
@@ -17,7 +18,7 @@ public class Parser {
 
     /**
      * Builds a graph from the contents of a .map file
-     * 
+     *
      * @param data contents of a .map file
      * @return graph
      */
@@ -63,21 +64,23 @@ public class Parser {
         }
         return graph;
     }
-    
+
     /**
      * Builds a scenario for benchmarking from contents of .map.scen file
-     * 
+     *
      * @param scenarioData contents of a .map.scen file
      * @param mapData contents of a .map file
      * @return scenario that can be used to run benchmarks
      */
-    public static Scenario buildScenario(List<String> scenarioData, List<String> mapData) {
+    public static Scenario buildScenario(List<String> scenarioData,
+            List<String> mapData, PathFinder pathFinder) {
+        
         if (scenarioData.size() < 2) {
             return null;
         }
         String mapName = scenarioData.get(1).split("\t")[1];
-        Scenario scenario = new Scenario(mapName, mapData);
-        
+        Scenario scenario = new Scenario(mapName, mapData, pathFinder);
+
         for (int i = 1; i < scenarioData.size(); i++) {
             String[] values = scenarioData.get(i).split("\t");
             int startX = Integer.parseInt(values[4]);
@@ -92,7 +95,7 @@ public class Parser {
         }
         return scenario;
     }
-    
+
     private static int getValue(String line, int index) {
         String substring = line.substring(index, line.length());
         return Integer.parseInt(substring);
@@ -101,7 +104,7 @@ public class Parser {
     private static char getCharAt(List<String> grid, int x, int y) {
         return grid.get(y + MAP_START_OFFSET).charAt(x);
     }
-    
+
     private enum Direction {
         UP(0, -1, false),
         DOWN(0, 1, false),
@@ -111,8 +114,7 @@ public class Parser {
         DOWN_RIGHT(1, 1, true),
         DOWN_LEFT(-1, 1, true),
         UP_LEFT(-1, -1, true);
-        
-        
+
         private int xDirection;
         private int yDirection;
         private boolean diagonal;
@@ -133,7 +135,7 @@ public class Parser {
 
         public boolean isDiagonal() {
             return diagonal;
-        }   
-        
+        }
+
     }
 }

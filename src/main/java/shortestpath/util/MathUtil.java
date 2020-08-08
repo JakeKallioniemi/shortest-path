@@ -58,4 +58,25 @@ public class MathUtil {
         }
         return sum / (double) values.size();
     }
+    
+    /**
+     * Calculates the absolute value of given value.
+     * 
+     * @param value
+     * @return absolute value
+     */
+    public static int abs(int value) {
+        return value > 0 ? value : -value;
+    }
+    
+    /**
+     * Calculates the Euclidean norm sqrt(a^2 + b^2)
+     * 
+     * @param a first value
+     * @param b second value
+     * @return Euclidean norm
+     */
+    public static double hypot(double a, double b) {
+        return Math.hypot(a, b);
+    }
 }

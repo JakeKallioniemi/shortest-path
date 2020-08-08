@@ -2,8 +2,8 @@ package shortestpath.benchmark;
 
 import java.util.ArrayList;
 import java.util.List;
-import shortestpath.domain.Dijkstra;
 import shortestpath.domain.Graph;
+import shortestpath.domain.PathFinder;
 import shortestpath.util.MathUtil;
 import shortestpath.util.Parser;
 
@@ -17,6 +17,7 @@ public class Scenario {
     private final String mapName;
     private final List<String> mapData;
     private final List<Test> tests;
+    private final PathFinder pathFinder;
     private List<Long> setupTimes;
     private List<Long> runTimes;
 
@@ -25,10 +26,12 @@ public class Scenario {
      *
      * @param mapName name of the map used for the scenario
      * @param mapData data from the .map file
+     * @param pathFinder pathfinding algorithm used in the benchmark
      */
-    public Scenario(String mapName, List<String> mapData) {
+    public Scenario(String mapName, List<String> mapData, PathFinder pathFinder) {
         this.mapName = mapName;
         this.mapData = mapData;
+        this.pathFinder = pathFinder;
         this.tests = new ArrayList<>();
         this.setupTimes = new ArrayList<>();
         this.runTimes = new ArrayList<>();
@@ -60,8 +63,7 @@ public class Scenario {
             long runTime = 0;
             for (Test test : tests) {
                 long runTimeStart = System.nanoTime();
-                Dijkstra dijkstra = new Dijkstra();
-                double pathLength = dijkstra.search(graph, test.getStart(), test.getEnd());
+                double pathLength = pathFinder.search(graph, test.getStart(), test.getEnd());
                 test.setLength(pathLength);
                 long runTimeEnd = System.nanoTime();
                 runTime += runTimeEnd - runTimeStart;
