@@ -2,9 +2,9 @@ package shortestpath;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import shortestpath.domain.Dijkstra;
 import shortestpath.domain.Graph;
 import shortestpath.domain.Node;
@@ -17,7 +17,7 @@ public class DijkstraTest {
     
     private Graph graph;
     
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         graph = Parser.buildGraph(FileReader.read(new File("maps/test.map")));
     }

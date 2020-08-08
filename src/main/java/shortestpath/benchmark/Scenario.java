@@ -18,8 +18,8 @@ public class Scenario {
     private final List<String> mapData;
     private final List<Test> tests;
     private final PathFinder pathFinder;
-    private List<Long> setupTimes;
-    private List<Long> runTimes;
+    private final List<Long> setupTimes;
+    private final List<Long> runTimes;
 
     /**
      * Creates a pathfinding algorithm benchmarking scenario.
@@ -99,7 +99,7 @@ public class Scenario {
     }
     
     /**
-     * The average (arithmetic mean) setup time for this scenario.
+     * The average (arithmetic mean) setup time in seconds for this scenario.
      * 
      * @return average setup time
      */
@@ -108,7 +108,7 @@ public class Scenario {
     }
 
     /**
-     * The average (arithmetic mean) run time for this scenario.
+     * The average (arithmetic mean) run time in seconds for this scenario.
      * 
      * @return average run time
      */
@@ -116,6 +116,11 @@ public class Scenario {
         return MathUtil.average(runTimes) / 1e9;
     }
 
+    /**
+     * Checks that all shortest paths were found correctly.
+     * 
+     * @return true if all found otherwise false
+     */
     public boolean allPathsFound() {
         for (Test test : tests) {
             if (!MathUtil.equals(test.getLength(), test.getOptimalLength(), 6)) {
