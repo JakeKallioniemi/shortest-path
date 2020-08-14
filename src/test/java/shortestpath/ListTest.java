@@ -16,7 +16,7 @@ public class ListTest {
 
     @Test
     public void canInitFromArray() {
-        Integer[] a = new Integer[] {1 ,7 , 5, 9999, -50};
+        Integer[] a = new Integer[]{1, 7, 5, 9999, -50};
         List<Integer> list = new List<>(a);
         assertAll(
                 () -> assertEquals(5, list.size()),
@@ -27,7 +27,7 @@ public class ListTest {
                 () -> assertEquals(-50, list.get(4))
         );
     }
-    
+
     @Test
     public void canGetElementFromList() {
         List<Integer> list = new List<>();
@@ -63,17 +63,14 @@ public class ListTest {
     }
 
     @Test
-    public void canUseListInForEeachLoop() {
+    public void canGetAsArray() {
         List<Integer> list = new List<>();
-        int expectedSum = 0;
-        for (int i = 0; i < 11; i++) {
-            expectedSum += i;
-            list.add(i);
-        }
-        int sum = 0;
-        for (int i : list) {
-            sum += i;
-        }
-        assertEquals(expectedSum, sum);
+        list.add(2);
+        list.add(100);
+        Integer[] array = list.toArray(Integer.class);
+        assertAll(
+                () -> assertEquals(2, array[0]),
+                () -> assertEquals(100, array[1])
+        );
     }
 }

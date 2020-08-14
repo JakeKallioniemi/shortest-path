@@ -1,14 +1,12 @@
 package shortestpath.util;
 
-import java.util.Iterator;
-
 /**
  * Simple list data structure.
  *
  * @author Jake
  * @param <E> type of elements inserted to list
  */
-public class List<E> implements Iterable<E> {
+public class List<E> {
 
     private E[] elements;
     private int size;
@@ -29,7 +27,7 @@ public class List<E> implements Iterable<E> {
     public List(E[] elements) {
         int n = elements.length;
         this.elements = (E[]) new Object[n];
-        System.arraycopy(elements, 0, this.elements, 0, n);
+        ArrayUtil.copy(elements, 0, this.elements, 0, n);
         size = n;
     }
     
@@ -49,7 +47,7 @@ public class List<E> implements Iterable<E> {
     private void grow() {
         int newCapacity = (elements.length * 3) / 2 + 1;
         E[] newArray = (E[]) new Object[newCapacity];
-        System.arraycopy(elements, 0, newArray, 0, elements.length);
+        ArrayUtil.copy(elements, 0, newArray, 0, elements.length);
         elements = newArray;
     }
 
@@ -76,33 +74,15 @@ public class List<E> implements Iterable<E> {
     }
 
     /**
-     * Returns an iterator over the elements in this list.
+     * Returns the elements of the list as an array.
      * 
-     * @return iterator
+     * @param type type of the array
+     * @return elements of the list as array
      */
-    @Override
-    public Iterator<E> iterator() {
-        return new ListIterator<>(this);
+    public E[] toArray(Class type) {
+        E[] array = (E[]) ArrayUtil.newArray(type, size);
+        ArrayUtil.copy(elements, 0, array, 0, size);
+        return array;
     }
-
-    private class ListIterator<E> implements Iterator<E> {
-
-        private List<E> list;
-        private int position;
-
-        public ListIterator(List<E> list) {
-            this.list = list;
-            this.position = 0;
-        }   
-        
-        @Override
-        public boolean hasNext() {
-            return position < list.size();
-        }
-
-        @Override
-        public E next() {
-            return list.get(position++);
-        }
-    }
+    
 }

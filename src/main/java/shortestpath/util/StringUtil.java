@@ -16,8 +16,11 @@ public class StringUtil {
      * @return substring
      */
     public static String substring(String string, int from, int to) {
-        // TODO
-        throw new UnsupportedOperationException();
+        char[] chars = string.toCharArray();
+        int length = to - from;
+        char[] substring = new char[length];
+        System.arraycopy(chars, from, substring, 0, length);
+        return new String(substring);
     }
 
     /**
@@ -27,9 +30,20 @@ public class StringUtil {
      * @param delimiter used for splitting
      * @return array containing parts of the String
      */
-    public static String[] split(String string, String delimiter) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public static String[] split(String string, char delimiter) {
+        List<String> parts = new List<>();
+        int start = 0;
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == delimiter) {
+                if (i - start > 0) {
+                    parts.add(substring(string, start, i));
+                }
+                start = i + 1;
+            } else if (i == string.length() - 1) {
+                parts.add(substring(string, start, string.length()));
+            }
+        }
+        return parts.toArray(String.class);
     }
 
     /**
@@ -39,8 +53,7 @@ public class StringUtil {
      * @return int parsed from the input String
      */
     public static int toInt(String string) {
-        // TODO
-        throw new UnsupportedOperationException();
+        return Integer.parseInt(string);
     }
 
     /**
@@ -49,8 +62,7 @@ public class StringUtil {
      * @param string double String
      * @return double parsed from the input String
      */
-    public static int toDouble(String string) {
-        // TODO
-        throw new UnsupportedOperationException();
+    public static double toDouble(String string) {
+        return Double.parseDouble(string);
     }
 }

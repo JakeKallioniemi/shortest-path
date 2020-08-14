@@ -17,19 +17,6 @@ public class MathUtil {
     public static double SQRT_OF_TWO = 1.4142135623730950488016887242097;
     
     /**
-     * Rounds a number to given amount of decimal places.
-     * 
-     * @param value to be rounded
-     * @param decimalPlaces amount of decimal places
-     * @return rounded value
-     */
-    public static double round(double value, int decimalPlaces) {
-        BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(decimalPlaces, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
-    
-    /**
      * Checks if two numbers are equal to given amount of decimal places.
      * 
      * @param a first number
