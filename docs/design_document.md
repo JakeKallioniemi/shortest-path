@@ -1,4 +1,4 @@
-# Design document
+# Design Document
 
 The program will compare the speed of different algorithms that solve the shortest path problem. The goal is to implement atleast Dijkstra's algorithm, A* and JPS. Additional algorithms, data structure comparisons, different optimizations and visualizations are a possibility depending on how smoothly the project goes. Material for pathfinding is still undecided but Moving AI labs 2D grids seems like the most likely candidate.
 
