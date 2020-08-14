@@ -1,9 +1,8 @@
 package shortestpath.benchmark;
 
-import java.util.ArrayList;
-import java.util.List;
 import shortestpath.domain.Graph;
 import shortestpath.domain.PathFinder;
+import shortestpath.util.List;
 import shortestpath.util.MathUtil;
 import shortestpath.util.Parser;
 
@@ -32,9 +31,9 @@ public class Scenario {
         this.mapName = mapName;
         this.mapData = mapData;
         this.pathFinder = pathFinder;
-        this.tests = new ArrayList<>();
-        this.setupTimes = new ArrayList<>();
-        this.runTimes = new ArrayList<>();
+        this.tests = new List<>();
+        this.setupTimes = new List<>();
+        this.runTimes = new List<>();
     }
 
     /**
@@ -61,7 +60,8 @@ public class Scenario {
             setupTimes.add(setupTimeEnd - setupTimeStart);
 
             long runTime = 0;
-            for (Test test : tests) {
+            for (int j = 0; j < tests.size(); j++) {   
+                Test test = tests.get(j);
                 long runTimeStart = System.nanoTime();
                 double pathLength = pathFinder.search(graph, test.getStart(), test.getEnd());
                 test.setLength(pathLength);
@@ -122,7 +122,8 @@ public class Scenario {
      * @return true if all found otherwise false
      */
     public boolean allPathsFound() {
-        for (Test test : tests) {
+        for (int i = 0; i < tests.size(); i++) {
+            Test test = tests.get(i);
             if (!MathUtil.equals(test.getLength(), test.getOptimalLength(), 6)) {
                 return false;
             }

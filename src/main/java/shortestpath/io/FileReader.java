@@ -1,9 +1,10 @@
 package shortestpath.io;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
+import shortestpath.util.List;
 
 /**
  * Reads a file
@@ -20,6 +21,11 @@ public class FileReader {
      * @throws IOException 
      */
     public static List<String> read(File file) throws IOException {
-        return Files.readAllLines(file.toPath());
+        List<String> lines = new List<>();
+        BufferedReader reader = Files.newBufferedReader(file.toPath());
+        while (reader.ready()) {
+            lines.add(reader.readLine());
+        }
+        return lines;
     }
 }

@@ -2,7 +2,7 @@ package shortestpath.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
+import shortestpath.util.List;
 
 /**
  * Constants and math functions.
@@ -40,8 +40,8 @@ public class MathUtil {
      */
     public static double average(List<Long> values) {
         long sum = 0;
-        for (Long value : values) {
-            sum += value;
+        for (int i = 0; i < values.size(); i++) {          
+            sum += values.get(i);
         }
         return sum / (double) values.size();
     }

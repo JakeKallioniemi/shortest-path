@@ -2,11 +2,11 @@ package shortestpath;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import shortestpath.benchmark.Scenario;
 import shortestpath.domain.AStar;
 import shortestpath.domain.Dijkstra;
 import shortestpath.io.FileReader;
+import shortestpath.util.List;
 import shortestpath.util.Parser;
 
 public class Main {

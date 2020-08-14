@@ -1,11 +1,11 @@
 package shortestpath.util;
 
-import java.util.List;
 import shortestpath.benchmark.Scenario;
 import shortestpath.benchmark.Test;
 import shortestpath.domain.Graph;
 import shortestpath.domain.Node;
 import shortestpath.domain.PathFinder;
+import shortestpath.util.List;
 
 /**
  * Parses the contents of a .map and .map.scen files.
@@ -78,16 +78,16 @@ public class Parser {
         if (scenarioData.size() < 2) {
             return null;
         }
-        String mapName = scenarioData.get(1).split("\t")[1];
+        String mapName = StringUtil.split(scenarioData.get(1), '\t')[1];
         Scenario scenario = new Scenario(mapName, mapData, pathFinder);
 
         for (int i = 1; i < scenarioData.size(); i++) {
-            String[] values = scenarioData.get(i).split("\t");
-            int startX = Integer.parseInt(values[4]);
-            int startY = Integer.parseInt(values[5]);
-            int endX = Integer.parseInt(values[6]);
-            int endY = Integer.parseInt(values[7]);
-            double optimalLength = Double.parseDouble(values[8]);
+            String[] values = StringUtil.split(scenarioData.get(i), '\t');
+            int startX = StringUtil.toInt(values[4]);
+            int startY = StringUtil.toInt(values[5]);
+            int endX = StringUtil.toInt(values[6]);
+            int endY = StringUtil.toInt(values[7]);
+            double optimalLength = StringUtil.toDouble(values[8]);
             Node start = new Node(startX, startY);
             Node end = new Node(endX, endY);
             Test test = new Test(start, end, optimalLength);
@@ -97,8 +97,8 @@ public class Parser {
     }
 
     private static int getValue(String line, int index) {
-        String substring = line.substring(index, line.length());
-        return Integer.parseInt(substring);
+        String substring = StringUtil.substring(line, index, line.length());
+        return StringUtil.toInt(substring);
     }
 
     private static char getCharAt(List<String> grid, int x, int y) {
