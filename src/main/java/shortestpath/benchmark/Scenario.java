@@ -128,7 +128,7 @@ public class Scenario {
     public boolean allPathsFound() {
         for (int i = 0; i < tests.size(); i++) {
             Test test = tests.get(i);
-            if (!MathUtil.equals(test.getLength(), test.getOptimalLength(), 0.000001)) {
+            if (!MathUtil.equals(test.getLength(), test.getOptimalLength(), 0.0001)) {
                 return false;
             }
         }

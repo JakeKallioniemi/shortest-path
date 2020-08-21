@@ -1,7 +1,7 @@
 package shortestpath.domain;
 
 import java.util.HashMap;
-import java.util.PriorityQueue;
+import shortestpath.util.BinaryHeap;
 import shortestpath.util.MathUtil;
 
 /**
@@ -21,7 +21,7 @@ public class AStar implements PathFinder {
      */
     @Override
     public double search(Graph graph, Node start, Node end) {
-        PriorityQueue<Edge> queue = new PriorityQueue<>(10);
+        BinaryHeap<Edge> queue = new BinaryHeap<>();
         HashMap<Node, Boolean> visited = new HashMap<>();
         HashMap<Node, Double> distance = new HashMap<>();
 
