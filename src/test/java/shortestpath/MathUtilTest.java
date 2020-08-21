@@ -9,13 +9,13 @@ public class MathUtilTest {
 
     @Test
     public void equalsTrueWhenEqual() {
-        boolean isEqual = MathUtil.equals(3.14159, 3.14168, 3);
+        boolean isEqual = MathUtil.equals(3.14159, 3.14168, 0.0001);
         assertTrue(isEqual);
     }
 
     @Test
     public void equalsFalseWhenNotEqual() {
-        boolean isEqual = MathUtil.equals(3.14159, 3.14168, 4);
+        boolean isEqual = MathUtil.equals(3.14159, 3.12168, 0.0001);
         assertFalse(isEqual);
     }
 

@@ -19,7 +19,7 @@ public class StringUtil {
         char[] chars = string.toCharArray();
         int length = to - from;
         char[] substring = new char[length];
-        System.arraycopy(chars, from, substring, 0, length);
+        ArrayUtil.copy(chars, from, substring, 0, length);
         return new String(substring);
     }
 

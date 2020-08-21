@@ -79,6 +79,10 @@ public class Scenario {
     public List<Test> getTests() {
         return tests;
     }
+    
+    public int getTestCount() {
+        return tests.size();
+    }
 
     /**
      * The setup times for each run.
@@ -124,7 +128,7 @@ public class Scenario {
     public boolean allPathsFound() {
         for (int i = 0; i < tests.size(); i++) {
             Test test = tests.get(i);
-            if (!MathUtil.equals(test.getLength(), test.getOptimalLength(), 6)) {
+            if (!MathUtil.equals(test.getLength(), test.getOptimalLength(), 0.000001)) {
                 return false;
             }
         }

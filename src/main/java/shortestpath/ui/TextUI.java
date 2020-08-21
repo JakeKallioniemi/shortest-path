@@ -40,11 +40,16 @@ public class TextUI {
 
             int runs = runs();
 
+            System.out.println("Running benchmark...");
             dijkstra.runScenario(runs);
             aStar.runScenario(runs);
 
+            int testCount = dijkstra.getTestCount();
+            
             System.out.println("-----Benchmark-----\n");     
-            System.out.println("Map: " + filename + "\n");
+            System.out.println("Map: " + filename);
+            System.out.println("Runs: " + runs);
+            System.out.println("Tests per run: "  + testCount + "\n");
             printResults(dijkstra, "Dijkstra's algorithm");
             printResults(aStar, "A*");
             System.out.println("-------------------");

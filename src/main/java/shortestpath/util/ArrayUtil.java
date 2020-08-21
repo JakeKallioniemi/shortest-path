@@ -4,14 +4,14 @@ import java.lang.reflect.Array;
 
 /**
  * Utility functions for arrays.
- * 
+ *
  * @author Jake
  */
 public class ArrayUtil {
 
     /**
      * Copy contents of an array to another.
-     * 
+     *
      * @param src source array
      * @param srcStart starting position in source array
      * @param dest destination array
@@ -24,7 +24,21 @@ public class ArrayUtil {
 
     /**
      * Copy contents of an array to another.
-     * 
+     *
+     * @param src source array
+     * @param srcStart starting position in source array
+     * @param dest destination array
+     * @param destStart starting position in destination array
+     * @param length length of the copy
+     */
+    public static void copy(char[] src, int srcStart, char[] dest, int destStart, int length) {
+        // Overloaded because generics don't work on primitives
+        System.arraycopy(src, srcStart, dest, destStart, length);
+    }
+
+    /**
+     * Copy contents of an array to another.
+     *
      * @param src source array
      * @param srcStart starting position in source array
      * @param dest destination array
@@ -43,7 +57,7 @@ public class ArrayUtil {
 
     /**
      * Create a new array of specified type and size.
-     * 
+     *
      * @param type type of the array
      * @param size size of the array
      * @return new array
