@@ -5,7 +5,6 @@ import shortestpath.benchmark.Test;
 import shortestpath.domain.Graph;
 import shortestpath.domain.Node;
 import shortestpath.domain.PathFinder;
-import shortestpath.util.List;
 
 /**
  * Parses the contents of a .map and .map.scen files.

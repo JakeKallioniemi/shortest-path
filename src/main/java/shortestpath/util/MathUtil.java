@@ -1,7 +1,5 @@
 package shortestpath.util;
 
-import shortestpath.util.List;
-
 /**
  * Constants and math functions.
  *
@@ -40,7 +38,7 @@ public class MathUtil {
         }
         return sum / (double) values.size();
     }
-
+      
     /**
      * Calculates the absolute value of given value.
      *
