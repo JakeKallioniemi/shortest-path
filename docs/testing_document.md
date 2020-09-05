@@ -14,7 +14,7 @@ Correctness of the pathfinding algorithms is mainly confirmed by running benchma
 
 ## Performance testing
 
-Testing the performance of the search algorithms is covered in the [implementation document](https://github.com/jakekall/shortest-path/blob/master/docs/implementation_document.md#complexity-and-performance).
+Testing the performance of the search algorithms is covered in the [implementation document](https://github.com/jakekall/shortest-path/blob/master/docs/implementation_document.md#performance).
 
 The custom data structures were tested against Java standard library implementations. The array lists were tested by adding and getting random values since those are the only operations the custom list supports. Heap was tested with adding random values and polling. All tests were reapeated 10 times and the reported times are averages in milliseconds. Both lists performed similarly while the Java implementation of heap was faster than the custom one. The tests can be run by selecting option 2 from the programs menu. 
 
