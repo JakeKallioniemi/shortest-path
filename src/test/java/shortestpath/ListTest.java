@@ -2,7 +2,7 @@ package shortestpath;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import shortestpath.util.List;
+import shortestpath.datastructures.List;
 
 public class ListTest {
 
@@ -12,20 +12,6 @@ public class ListTest {
         list.add(2);
         list.add(100);
         assertEquals(2, list.size());
-    }
-
-    @Test
-    public void canInitFromArray() {
-        Integer[] a = new Integer[]{1, 7, 5, 9999, -50};
-        List<Integer> list = new List<>(a);
-        assertAll(
-                () -> assertEquals(5, list.size()),
-                () -> assertEquals(1, list.get(0)),
-                () -> assertEquals(7, list.get(1)),
-                () -> assertEquals(5, list.get(2)),
-                () -> assertEquals(9999, list.get(3)),
-                () -> assertEquals(-50, list.get(4))
-        );
     }
 
     @Test
@@ -62,15 +48,4 @@ public class ListTest {
         assertEquals(11, list.size());
     }
 
-    @Test
-    public void canGetAsArray() {
-        List<Integer> list = new List<>();
-        list.add(2);
-        list.add(100);
-        Integer[] array = list.toArray(Integer.class);
-        assertAll(
-                () -> assertEquals(2, array[0]),
-                () -> assertEquals(100, array[1])
-        );
-    }
 }

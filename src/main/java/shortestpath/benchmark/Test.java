@@ -1,6 +1,6 @@
 package shortestpath.benchmark;
 
-import shortestpath.domain.Node;
+import shortestpath.datastructures.Coordinate;
 
 /**
  * Holds information required to run a single test.
@@ -9,8 +9,8 @@ import shortestpath.domain.Node;
  */
 public class Test {
 
-    private final Node start;
-    private final Node end;
+    private final Coordinate start;
+    private final Coordinate end;
     private final double optimalLength;
     private double length;
 
@@ -21,17 +21,17 @@ public class Test {
      * @param end end point of the path finding
      * @param optimalLength  shortest possible path from start to end
      */
-    public Test(Node start, Node end, double optimalLength) {
+    public Test(Coordinate start, Coordinate end, double optimalLength) {
         this.start = start;
         this.end = end;
         this.optimalLength = optimalLength;
     }
 
-    public Node getStart() {
+    public Coordinate getStart() {
         return start;
     }
 
-    public Node getEnd() {
+    public Coordinate getEnd() {
         return end;
     }
 
@@ -46,10 +46,5 @@ public class Test {
     public void setLength(double length) {
         this.length = length;
     }
-
-    @Override
-    public String toString() {
-        return start + " -> " + end + " expected: " + optimalLength
-                + " actual: " + length;
-    }
+    
 }

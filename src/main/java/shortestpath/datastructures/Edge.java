@@ -1,36 +1,26 @@
-package shortestpath.domain;
-
-import java.util.Objects;
+package shortestpath.datastructures;
 
 /**
- * Represents a graphs edge with endpoint and cost.
- * 
+ * Represents a graphs edge with endpoint and cost. Used in adjacency list.
+ *
  * @author Jake
  */
 public class Edge implements Comparable<Edge> {
 
-    private final Node end;
+    private final Coordinate end;
     private final double cost;
 
-    public Edge(Node end, double cost) {
+    public Edge(Coordinate end, double cost) {
         this.end = end;
         this.cost = cost;
     }
 
-    public Node getEnd() {
+    public Coordinate getEnd() {
         return end;
     }
 
     public double getCost() {
         return cost;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.end);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.cost) ^ (Double.doubleToLongBits(this.cost) >>> 32));
-        return hash;
     }
 
     @Override
@@ -51,6 +41,6 @@ public class Edge implements Comparable<Edge> {
     @Override
     public int compareTo(Edge other) {
         return this.cost > other.cost ? 1 : -1;
-    }   
+    }
 
 }

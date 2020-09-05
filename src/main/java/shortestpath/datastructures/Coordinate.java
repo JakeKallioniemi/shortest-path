@@ -1,34 +1,26 @@
-package shortestpath.domain;
+package shortestpath.datastructures;
 
 /**
  * Represents a node with x and y coordinates.
- * 
+ *
  * @author Jake
  */
-public class Node {
+public class Coordinate {
 
     private final int x;
     private final int y;
 
-    public Node(int x, int y) {
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    
+
     public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
-    } 
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + x;
-        hash = 41 * hash + y;
-        return hash;
     }
 
     @Override
@@ -42,13 +34,8 @@ public class Node {
         if (getClass() != other.getClass()) {
             return false;
         }
-        Node node = (Node) other;
+        Coordinate node = (Coordinate) other;
         return this.x == node.x && this.y == node.y;
     }
 
-    @Override
-    public String toString() {
-        return "(" + x + "," + y + ")";
-    }
-    
 }

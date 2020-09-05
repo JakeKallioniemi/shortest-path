@@ -2,7 +2,7 @@ package shortestpath;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import shortestpath.util.BinaryHeap;
+import shortestpath.datastructures.BinaryHeap;
 
 public class BinaryHeapTest {
 

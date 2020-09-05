@@ -1,5 +1,7 @@
 package shortestpath.util;
 
+import shortestpath.datastructures.List;
+
 /**
  * Various utility functions for Strings.
  *
@@ -30,7 +32,7 @@ public class StringUtil {
      * @param delimiter used for splitting
      * @return array containing parts of the String
      */
-    public static String[] split(String string, char delimiter) {
+    public static List<String> split(String string, char delimiter) {
         List<String> parts = new List<>();
         int start = 0;
         for (int i = 0; i < string.length(); i++) {
@@ -43,7 +45,7 @@ public class StringUtil {
                 parts.add(substring(string, start, string.length()));
             }
         }
-        return parts.toArray(String.class);
+        return parts;
     }
 
     /**

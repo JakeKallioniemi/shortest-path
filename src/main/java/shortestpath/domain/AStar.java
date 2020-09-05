@@ -1,59 +1,72 @@
 package shortestpath.domain;
 
-import java.util.HashMap;
-import shortestpath.util.BinaryHeap;
+import shortestpath.datastructures.BinaryHeap;
+import shortestpath.datastructures.Coordinate;
+import shortestpath.datastructures.Edge;
+import shortestpath.datastructures.Graph;
+import shortestpath.datastructures.List;
 import shortestpath.util.MathUtil;
 
 /**
- * Implementation of A* using Euclidean distance as heuristic.
+ * Implementation of A* using octile distance as heuristic.
  *
  * @author Jake
  */
 public class AStar implements PathFinder {
 
+    private Graph graph;
+
+    public AStar(Graph graph) {
+        this.graph = graph;
+    }
+
     /**
      * Finds the shortest path from start to end using A*.
      *
-     * @param graph graph used for searching
      * @param start starting point of the path
      * @param end end point of the path
      * @return shortest path from start to end
      */
     @Override
-    public double search(Graph graph, Node start, Node end) {
+    public double search(Coordinate start, Coordinate end) {
         BinaryHeap<Edge> queue = new BinaryHeap<>();
-        HashMap<Node, Boolean> visited = new HashMap<>();
-        HashMap<Node, Double> distance = new HashMap<>();
+        boolean[][] visited = new boolean[graph.getWidth()][graph.getHeight()];
+        double[][] distance = new double[graph.getWidth()][graph.getHeight()];
 
-        distance.put(start, 0.0);
         queue.add(new Edge(start, 0));
 
         while (!queue.isEmpty()) {
-            Node current = queue.poll().getEnd();
+            Coordinate current = queue.poll().getEnd();
             if (current.equals(end)) {
-                break;
+                return distance[end.getX()][end.getY()];
             }
-            if (visited.getOrDefault(current, false)) {
+            if (visited[current.getX()][current.getY()]) {
                 continue;
             }
-            visited.put(current, true);
-            for (Edge edge : graph.getNeighbors(current)) {
-                Node next = edge.getEnd();
-                double currentDistance = distance.getOrDefault(next, 10000.0);
-                double newDistance = distance.get(current) + edge.getCost();
-                if (newDistance < currentDistance) {
-                    distance.put(next, newDistance);
-                    queue.add(new Edge(next, newDistance + heuristic(end, next)));
+            visited[current.getX()][current.getY()] = true;
+            List<Edge> neighbors = graph.getNeighbors(current);
+            for (int i = 0; i < neighbors.size(); i++) {
+                Edge edge = neighbors.get(i);
+                Coordinate next = edge.getEnd();
+
+                double gScore = distance[next.getX()][next.getY()];
+                if (gScore == 0) {
+                    gScore = 10000;
+                }
+                double tentativeGScore = distance[current.getX()][current.getY()] + edge.getCost();
+                if (tentativeGScore < gScore) {
+                    distance[next.getX()][next.getY()] = tentativeGScore;
+                    queue.add(new Edge(next, tentativeGScore + heuristic(next, end)));
                 }
             }
         }
-        return distance.getOrDefault(end, -1.0);
+        return -1;
     }
 
-    private double heuristic(Node a, Node b) {
-        // Euclidean distance
-        double ac = MathUtil.abs(a.getY() - b.getY());
-        double cb = MathUtil.abs(a.getX() - b.getX());
-        return MathUtil.hypot(ac, cb);
+    private double heuristic(Coordinate a, Coordinate b) {
+        // Octile distance
+        int dx = MathUtil.abs(a.getX() - b.getX());
+        int dy = MathUtil.abs(a.getY() - b.getY());
+        return (dx + dy) + (MathUtil.SQRT_OF_TWO - 2) * MathUtil.min(dx, dy);
     }
 }

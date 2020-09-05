@@ -1,4 +1,6 @@
-package shortestpath.util;
+package shortestpath.datastructures;
+
+import shortestpath.util.ArrayUtil;
 
 /**
  * Simple list data structure.
@@ -10,25 +12,13 @@ public class List<E> {
 
     private E[] elements;
     private int size;
-
+    
     /**
-     * Creates an empty list.
+     * Creates an empty list with initial capacity of 10.
      */
     public List() {
         this.elements = (E[]) new Object[10];
         this.size = 0;
-    }
-    
-    /**
-     * Initializes the list with elements from provided array.
-     * 
-     * @param elements for the list
-     */
-    public List(E[] elements) {
-        int n = elements.length;
-        this.elements = (E[]) new Object[n];
-        ArrayUtil.copy(elements, 0, this.elements, 0, n);
-        size = n;
     }
     
     /**
@@ -71,18 +61,6 @@ public class List<E> {
      */
     public int size() {
         return size;
-    }
-
-    /**
-     * Returns the elements of the list as an array.
-     * 
-     * @param type type of the array
-     * @return elements of the list as array
-     */
-    public E[] toArray(Class type) {
-        E[] array = (E[]) ArrayUtil.newArray(type, size);
-        ArrayUtil.copy(elements, 0, array, 0, size);
-        return array;
     }
     
 }

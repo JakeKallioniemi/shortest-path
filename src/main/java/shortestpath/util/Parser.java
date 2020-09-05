@@ -2,8 +2,10 @@ package shortestpath.util;
 
 import shortestpath.benchmark.Scenario;
 import shortestpath.benchmark.Test;
-import shortestpath.domain.Graph;
-import shortestpath.domain.Node;
+import shortestpath.datastructures.Coordinate;
+import shortestpath.datastructures.Graph;
+import shortestpath.datastructures.Grid;
+import shortestpath.datastructures.List;
 import shortestpath.domain.PathFinder;
 
 /**
@@ -16,7 +18,7 @@ public class Parser {
     private static final int MAP_START_OFFSET = 4;
 
     /**
-     * Builds a graph from the contents of a .map file
+     * Builds an adjacency list graph from the contents of a .map file
      *
      * @param data contents of a .map file
      * @return graph
@@ -24,44 +26,65 @@ public class Parser {
     public static Graph buildGraph(List<String> data) {
         int height = getValue(data.get(1), 7);
         int width = getValue(data.get(2), 6);
-        Graph graph = new Graph();
+        Graph graph = new Graph(width, height);
 
         for (int i = MAP_START_OFFSET; i < height + MAP_START_OFFSET; i++) {
             int y = i - MAP_START_OFFSET;
             for (int x = 0; x < width; x++) {
                 char startChar = getCharAt(data, x, y);
-                if (startChar != '.') {
+                if (!(startChar == '.' || startChar == 'G')) {
                     continue;
                 }
                 for (Direction direction : Direction.values()) {
-                    int endX = x + direction.xDirection;
-                    int endY = y + direction.yDirection;
+                    int endX = x + direction.getDx();
+                    int endY = y + direction.getDy();
                     if (endX < 0 || endX >= width || endY < 0 || endY >= height) {
                         continue;
                     }
                     char endChar = getCharAt(data, endX, endY);
-                    if (endChar != '.') {
+                    if (!(endChar == '.' || endChar == 'G')) {
                         continue;
                     }
-                    Node start = new Node(x, y);
-                    Node end = new Node(endX, endY);
+                    Coordinate start = new Coordinate(x, y);
+                    Coordinate end = new Coordinate(endX, endY);
                     double cost = 1;
-                    if (direction.diagonal) {
+                    if (direction.isDiagonal()) {
                         char a = getCharAt(data, endX, y);
                         char b = getCharAt(data, x, endY);
                         // Makes sure we are not diagonally cutting trough walls
-                        if (a != '.' || b != '.') {
+                        if (!((a == '.' || a == 'G') && (b == '.' || b == 'G'))) {
                             continue;
                         }
                         // Using square root of two for cost of diagonal movement
                         cost = MathUtil.SQRT_OF_TWO;
                     }
                     graph.addEdge(start, end, cost);
-                    graph.addEdge(end, start, cost);
                 }
             }
         }
         return graph;
+    }
+
+    /**
+     * Builds a grid from the contents of a .map file 
+     * 
+     * @param data contents of a .map file
+     * @return grid
+     */
+    public static Grid buildGrid(List<String> data) {
+        int height = getValue(data.get(1), 7);
+        int width = getValue(data.get(2), 6);
+        Grid grid = new Grid(width, height);
+
+        for (int i = MAP_START_OFFSET; i < height + MAP_START_OFFSET; i++) {
+            int y = i - MAP_START_OFFSET;
+            for (int x = 0; x < width; x++) {
+                char node = getCharAt(data, x, y);
+                boolean blocked = !(node == '.' || node == 'G');
+                grid.addNode(x, y, blocked);
+            }
+        }
+        return grid;
     }
 
     /**
@@ -73,22 +96,22 @@ public class Parser {
      */
     public static Scenario buildScenario(List<String> scenarioData,
             List<String> mapData, PathFinder pathFinder) {
-        
+
         if (scenarioData.size() < 2) {
             return null;
         }
-        String mapName = StringUtil.split(scenarioData.get(1), '\t')[1];
-        Scenario scenario = new Scenario(mapName, mapData, pathFinder);
+        
+        Scenario scenario = new Scenario(mapData, pathFinder);
 
         for (int i = 1; i < scenarioData.size(); i++) {
-            String[] values = StringUtil.split(scenarioData.get(i), '\t');
-            int startX = StringUtil.toInt(values[4]);
-            int startY = StringUtil.toInt(values[5]);
-            int endX = StringUtil.toInt(values[6]);
-            int endY = StringUtil.toInt(values[7]);
-            double optimalLength = StringUtil.toDouble(values[8]);
-            Node start = new Node(startX, startY);
-            Node end = new Node(endX, endY);
+            List<String> values = StringUtil.split(scenarioData.get(i), '\t');
+            int startX = StringUtil.toInt(values.get(4));
+            int startY = StringUtil.toInt(values.get(5));
+            int endX = StringUtil.toInt(values.get(6));
+            int endY = StringUtil.toInt(values.get(7));
+            double optimalLength = StringUtil.toDouble(values.get(8));
+            Coordinate start = new Coordinate(startX, startY);
+            Coordinate end = new Coordinate(endX, endY);
             Test test = new Test(start, end, optimalLength);
             scenario.addTest(test);
         }
@@ -104,37 +127,4 @@ public class Parser {
         return grid.get(y + MAP_START_OFFSET).charAt(x);
     }
 
-    private enum Direction {
-        UP(0, -1, false),
-        DOWN(0, 1, false),
-        LEFT(-1, 0, false),
-        RIGHT(1, 0, false),
-        UP_RIGHT(1, -1, true),
-        DOWN_RIGHT(1, 1, true),
-        DOWN_LEFT(-1, 1, true),
-        UP_LEFT(-1, -1, true);
-
-        private int xDirection;
-        private int yDirection;
-        private boolean diagonal;
-
-        private Direction(int xDirection, int yDirection, boolean diagonal) {
-            this.xDirection = xDirection;
-            this.yDirection = yDirection;
-            this.diagonal = diagonal;
-        }
-
-        public int getxDirection() {
-            return xDirection;
-        }
-
-        public int getyDirection() {
-            return yDirection;
-        }
-
-        public boolean isDiagonal() {
-            return diagonal;
-        }
-
-    }
 }

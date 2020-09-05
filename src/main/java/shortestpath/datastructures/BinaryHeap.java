@@ -1,4 +1,6 @@
-package shortestpath.util;
+package shortestpath.datastructures;
+
+import shortestpath.util.ArrayUtil;
 
 public class BinaryHeap<E extends Comparable> {
 
@@ -6,7 +8,7 @@ public class BinaryHeap<E extends Comparable> {
     private int index;
 
     /**
-     * Creates an empty heap.
+     * Creates an empty binary heap.
      */
     public BinaryHeap() {
         this.elements = new Comparable[11];

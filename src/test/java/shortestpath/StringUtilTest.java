@@ -2,6 +2,7 @@ package shortestpath;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import shortestpath.datastructures.List;
 import shortestpath.util.StringUtil;
 
 public class StringUtilTest {
@@ -38,43 +39,43 @@ public class StringUtilTest {
     @Test
     public void splitWithTab() {
         String string = "ab\tc\t123";
-        String[] parts = StringUtil.split(string, '\t');
+        List<String> parts = StringUtil.split(string, '\t');
         assertAll(
-                () -> assertEquals(3, parts.length),
-                () -> assertEquals("ab", parts[0]),
-                () -> assertEquals("c", parts[1]),
-                () -> assertEquals("123", parts[2])
+                () -> assertEquals(3, parts.size()),
+                () -> assertEquals("ab", parts.get(0)),
+                () -> assertEquals("c", parts.get(1)),
+                () -> assertEquals("123", parts.get(2))
         );
     }
 
     @Test
     public void onePartWhenNoDelimiterFound() {
         String string = "abc123";
-        String[] parts = StringUtil.split(string, '\t');
+        List<String> parts = StringUtil.split(string, '\t');
         assertAll(
-                () -> assertEquals(1, parts.length),
-                () -> assertEquals("abc123", parts[0])
+                () -> assertEquals(1, parts.size()),
+                () -> assertEquals("abc123", parts.get(0))
         );
     }
 
     @Test
     public void onePartWhenDelimiterIsLast() {
         String string = "abc123";
-        String[] parts = StringUtil.split(string, '3');
+        List<String> parts = StringUtil.split(string, '3');
         assertAll(
-                () -> assertEquals(1, parts.length),
-                () -> assertEquals("abc12", parts[0])
+                () -> assertEquals(1, parts.size()),
+                () -> assertEquals("abc12", parts.get(0))
         );
     }
 
     @Test
     public void splitsCorrectlyWhenDelimiterIsFirst() {
         String string = " ab c123";
-        String[] parts = StringUtil.split(string, ' ');
+        List<String> parts = StringUtil.split(string, ' ');
         assertAll(
-                () -> assertEquals(2, parts.length),
-                () -> assertEquals("ab", parts[0]),
-                () -> assertEquals("c123", parts[1])
+                () -> assertEquals(2, parts.size()),
+                () -> assertEquals("ab",parts.get(0)),
+                () -> assertEquals("c123", parts.get(1))
         );
     }
 }
