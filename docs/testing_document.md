@@ -6,7 +6,7 @@ Report on test coverage can be found [here](https://codecov.io/gh/jakekall/short
 
 ## Unit testing
 
-Unit testing is done with [JUnit5](https://junit.org/junit5/). The utility classes and custom data structures have a decent amount of tests. Reading files and UI are not unit tested, and they are ignored from the test coverage report. There are several classes that contain no or very little logic, and are mainly used to hold data which are not tested directly. Because of the nature of the benchmark classes, testing that they work correctly with unit tests is difficult.
+Unit testing is done with [JUnit5](https://junit.org/junit5/). The utility classes and custom data structures have a decent amount of tests. Reading files and UI are not unit tested, and they are ignored from the test coverage report. There are several classes that contain no or very little logic, and are mainly used to hold data, which are not tested directly. Because of the nature of the benchmark classes, testing that they work correctly with unit tests, is difficult. The files test.map and test.map.scen from the maps folder are used for few of the unit tests.
 
 ## Algorithm correctness
 
