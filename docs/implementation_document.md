@@ -41,6 +41,7 @@ I tested four different maps arena, orz304d, den011d and brc203d. These are all 
 - JPS stores state in the nodes so all of them have to be reset before it can search for the next path.
 - runScenario() method in Scenario class got a bit messy after adding JPS. 
 - StringUtil still uses Java's parseInt and parseDouble. These are only used for parsing the files.
+- Even though the tests in scenario files are split into buckets, you can only run the entire scenario, which can take a lot of time. There are also no way to run an invidual search (other than defining a scenario file with one test).
 - The program could have included more comparisons. For example some benchmarks on different heuristics.
 - There could have been more benchmark info. For example dumbed into a file.
 - The program is a bit boring since it doesn't actually show any of the found paths. A GUI and some path finding visualization would have been nice.
