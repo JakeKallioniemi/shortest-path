@@ -6,7 +6,7 @@ Report on test coverage can be found [here](https://codecov.io/gh/jakekall/short
 
 ## Unit testing
 
-Unit testing is done with [JUnit5](https://junit.org/junit5/). The utility classes and custom data structures have a decent amount of test. Reading files and UI are not unit tested and they are ignored from the test coverage report. There are several classes that contain no or very little logic and are mainly used to hold data which are not tested directly. Because of the nature of the benchmark classes testing that they work correctly with unit tests is difficult.
+Unit testing is done with [JUnit5](https://junit.org/junit5/). The utility classes and custom data structures have a decent amount of tests. Reading files and UI are not unit tested, and they are ignored from the test coverage report. There are several classes that contain no or very little logic, and are mainly used to hold data which are not tested directly. Because of the nature of the benchmark classes, testing that they work correctly with unit tests is difficult.
 
 ## Algorithm correctness
 
@@ -38,4 +38,4 @@ Heap test:
 | 1000000  | 387.2181  | 298.2361  |
 | 10000000 | 6483.9770 | 5863.4980 |
 
-Note that the data structures don't use System.arraycopy(). There was a small effect on data structure performance but it didn't have any noticable effect on the actual algorithms
+Note that the data structures don't use System.arraycopy(). There is a small effect on data structure performance, but it doesn't have any noticeable effect on the actual algorithms, which makes sence because the data structures stay fairly small during execution.
