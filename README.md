@@ -18,4 +18,4 @@ Comparing various algorithms for solving the shortest path problem.
 - [Week 2](https://github.com/JakeKallioniemi/shortest-path/blob/master/docs/weekly_reports/week_2.md)
 - [Week 3](https://github.com/JakeKallioniemi/shortest-path/blob/master/docs/weekly_reports/week_3.md)
 - [Week 4](https://github.com/JakeKallioniemi/shortest-path/blob/master/docs/weekly_reports/week_4.md)
-
+- [Week 5](https://github.com/JakeKallioniemi/shortest-path/blob/master/docs/weekly_reports/week_5.md)
