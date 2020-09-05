@@ -2,7 +2,7 @@
 
 ## Project structure
 
-Since the control flow of the program is fairly simple it's all done directly from the TextUI class. TextUI uses FileReader and Parser to build the required graphs and benchmark data from the map files. It then uses them to build a Scenario, which is then ran. The scenario uses a provided path finding algorithm to go trough all the tests that were defined in the parsed file. Afterwards in returns the results which are then printed to console by the UI class. The project also contains several utility classes and data structures that are used in the benchmarking process.
+Since the control flow of the program is fairly simple it's all done directly from the TextUI class. TextUI uses FileReader and Parser to build the required graphs and benchmark data from the map files. It then uses them to build a Scenario, which is then ran. The scenario uses a provided path finding algorithm to go trough all the tests that were defined in the parsed file. Afterwards in returns the results, which are then printed to console by the UI class. The project also contains several utility classes and data structures that are used in the benchmarking process.
 
 ## About the algorithms
 
@@ -10,7 +10,7 @@ I originally used Euclidian distance as heuristic for A* and JPS. After reading 
 
 The benchmark file assumes that the path is not cutting trough any wall cornerns, which means that the pruning in JPS works a bit differently from most online examples.
 
-Dijkstra's algorithm and A* require some preprocessing since both of them use adjacency lists as graph. JPS just uses the raw grid. The preprocessing time isn't very significant since after every time the graph is build multiple searches are done, which is probably true for most real world scenarios as well.
+Dijkstra's algorithm and A* require some preprocessing, since both of them use adjacency lists as graph. JPS just uses the raw grid. The preprocessing time isn't very significant, since after every time the graph is build multiple searches are done, which is probably true for most real world scenarios as well.
 
 ## Time and space complexity
 
@@ -24,9 +24,9 @@ The array list has time complexity of O(1) amortized for inserting and O(1) for 
 
 ## Performance
 
-More information about the maps, benchmarks and how to run them in the [user guide](https://github.com/jakekall/shortest-path/blob/master/docs/user_guide.md).
+More information about the maps, benchmarks, and how to run them in the [user guide](https://github.com/jakekall/shortest-path/blob/master/docs/user_guide.md).
 
-I tested four different maps arena, orz304d, den011d and brc203d. These are all included in the map folder. The reported times are averages over many runs. The time of the first run is discarded. Since the time it takes to run the benchmark varies wildly between the maps, I couldn't run them all the same amount of times. So the times for the larger maps might vary a bit more. The tests were ran on Intel i5-4690K 3.50 GHz with 8 GB of RAM. All times are in milliseconds.
+I tested four different maps: arena, orz304d, den011d and brc203d. These are all included in the map folder. The reported times are averages over many runs. The time of the first run is discarded. Since the time it takes to run the benchmark varies wildly between the maps, I couldn't run them all the same amount of times, so the times for the larger maps might vary a bit more. The tests were ran on Intel i5-4690K 3.50 GHz with 8 GB of RAM. All times are in milliseconds.
 
 | map     | repeats | tests | Dijkstra | A*      | JPS     |
 |---------|---------|-------|----------|---------|---------|
