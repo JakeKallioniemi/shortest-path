@@ -36,7 +36,8 @@ public class GridTest {
 
     @Test
     public void cantGetNonExistentNode() {
-        assertAll(() -> assertNull(grid.getNode(-1, 3)),
+        assertAll(
+                () -> assertNull(grid.getNode(-1, 3)),
                 () -> assertNull(grid.getNode(5, -1)),
                 () -> assertNull(grid.getNode(9, 5)),
                 () -> assertNull(grid.getNode(7, 8)),
@@ -46,7 +47,8 @@ public class GridTest {
 
     @Test
     public void validNodeTraversable() {
-        assertAll(() -> assertTrue(grid.traversable(0, 1)),
+        assertAll(
+                () -> assertTrue(grid.traversable(0, 1)),
                 () -> assertTrue(grid.traversable(3, 2)),
                 () -> assertTrue(grid.traversable(4, 1)),
                 () -> assertTrue(grid.traversable(8, 7))
@@ -55,7 +57,8 @@ public class GridTest {
 
     @Test
     public void blockedNodeNotTracersable() {
-        assertAll(() -> assertFalse(grid.traversable(0, 0)),
+        assertAll(
+                () -> assertFalse(grid.traversable(0, 0)),
                 () -> assertFalse(grid.traversable(3, 3)),
                 () -> assertFalse(grid.traversable(6, 6)),
                 () -> assertFalse(grid.traversable(7, 7))
@@ -64,7 +67,8 @@ public class GridTest {
 
     @Test
     public void nonExistentNodeNotTraversable() {
-        assertAll(() -> assertFalse(grid.traversable(-1, 3)),
+        assertAll(
+                () -> assertFalse(grid.traversable(-1, 3)),
                 () -> assertFalse(grid.traversable(5, -1)),
                 () -> assertFalse(grid.traversable(9, 5)),
                 () -> assertFalse(grid.traversable(7, 8)),
@@ -81,9 +85,10 @@ public class GridTest {
         node.setGScore(3);
         node.setVisited(true);
         grid.resetNodes();
-        
+
         Node resettedNode = grid.getNode(3, 2);
-        assertAll(() -> assertFalse(resettedNode.isOpen()),
+        assertAll(
+                () -> assertFalse(resettedNode.isOpen()),
                 () -> assertNull(resettedNode.getParent()),
                 () -> assertEquals(0, resettedNode.getFScore()),
                 () -> assertEquals(0, resettedNode.getGScore()),

@@ -32,8 +32,12 @@ public class MathUtil {
      *
      * @param values list with values
      * @return average of the values
+     * @throws IllegalArgumentException if list is empty
      */
     public static double average(List<Long> values) {
+        if (values.size() == 0) {
+            throw new IllegalArgumentException();
+        }
         long sum = 0;
         for (int i = 0; i < values.size(); i++) {
             sum += values.get(i);
@@ -46,8 +50,12 @@ public class MathUtil {
      *
      * @param values list with values
      * @return min value
+     * @throws IllegalArgumentException if list is empty
      */
     public static long min(List<Long> values) {
+        if (values.size() == 0) {
+            throw new IllegalArgumentException();
+        }
         long min = Long.MAX_VALUE;
         for (int i = 0; i < values.size(); i++) {
             long value = values.get(i);
@@ -60,7 +68,7 @@ public class MathUtil {
 
     /**
      * Returns the smallest of the two values.
-     * 
+     *
      * @param a first value
      * @param b second value
      * @return min value
@@ -68,14 +76,18 @@ public class MathUtil {
     public static int min(int a, int b) {
         return a < b ? a : b;
     }
-    
+
     /**
      * Returns the largest value in given list.
      *
      * @param values list with values
      * @return max value
+     * @throws IllegalArgumentException if list is empty
      */
     public static long max(List<Long> values) {
+        if (values.size() == 0) {
+            throw new IllegalArgumentException();
+        }
         long max = Long.MIN_VALUE;
         for (int i = 0; i < values.size(); i++) {
             long value = values.get(i);

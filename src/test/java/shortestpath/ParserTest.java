@@ -39,13 +39,14 @@ public class ParserTest {
     public void grapHasCorrectNeighbours() {
         Graph graph = Parser.buildGraph(mapData);
         List<Edge> neighbors = graph.getNeighbors(new Coordinate(7, 6));
-        
-        assertAll(() -> assertEquals(2, neighbors.size()),
+
+        assertAll(
+                () -> assertEquals(2, neighbors.size()),
                 () -> assertEquals(new Coordinate(7, 5), neighbors.get(0).getEnd()),
                 () -> assertEquals(new Coordinate(7, 7), neighbors.get(1).getEnd())
         );
     }
-    
+
     @Test
     public void gridNodeHasCorrectProperties() {
         Grid grid = Parser.buildGrid(mapData);
@@ -60,7 +61,8 @@ public class ParserTest {
         // Java doesn't support aliasing imports :(
         List<shortestpath.benchmark.Test> tests = scen.getTests();
 
-        assertAll(() -> assertEquals(3, tests.size()),
+        assertAll(
+                () -> assertEquals(3, tests.size()),
                 () -> assertTrue(testEquals(new Coordinate(1, 1), new Coordinate(8, 1), 12.6568542, tests.get(0))),
                 () -> assertTrue(testEquals(new Coordinate(1, 1), new Coordinate(1, 4), 3, tests.get(1))),
                 () -> assertTrue(testEquals(new Coordinate(1, 1), new Coordinate(2, 1), 1, tests.get(2)))

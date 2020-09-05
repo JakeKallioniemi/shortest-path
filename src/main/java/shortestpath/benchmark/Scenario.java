@@ -55,6 +55,10 @@ public class Scenario {
      * @param ignoreFirstRun if true the result for first run is not counted
      */
     public Result runScenario(int runCount, boolean ignoreFirstRun) {
+        // This was originally made with Dijkstra and A* in mind so adding JPS
+        // which uses the raw grid instead of adjecency list made the structure
+        // of this method a bit awkward
+        
         for (int i = 0; i < runCount; i++) {
             long setupTimeStart = System.nanoTime();
             if (pathFinder instanceof JPS) {
