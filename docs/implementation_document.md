@@ -6,9 +6,11 @@ Since the control flow of the program is fairly simple it's all done directly fr
 
 ## About the algorithms
 
-I originally used Euclidian distance as heuristic for A* and JPS. After reading more abot the different heuristics I switched to octile distance. JPS uses octile distance to calculate the distance from previous previous node as well. The performance boost for A* especially was very significant. The benchmark file assumes that the path is not cutting trough any wall cornerns, which means that the pruning in JPS works a bit differently from most online examples.
+I originally used Euclidian distance as heuristic for A* and JPS. After reading more abot the different heuristics I switched to octile distance. JPS uses octile distance to calculate the distance from previous previous node as well. The performance boost for A* especially was very significant.
 
-Dijkstra's algorithm and A* require some preprocessing since both of them use adjacency lists as graph. JPS just uses the raw grid.
+The benchmark file assumes that the path is not cutting trough any wall cornerns, which means that the pruning in JPS works a bit differently from most online examples.
+
+Dijkstra's algorithm and A* require some preprocessing since both of them use adjacency lists as graph. JPS just uses the raw grid. The preprocessing time isn't very significant since after every time the graph is build multiple searches are done, which is probably true for most real world scenarios as well.
 
 ## Time and space complexity
 
@@ -36,19 +38,19 @@ I tested four different maps arena, orz304d, den011d and brc203d. These are all 
 ## Flaws and improvements
 
 - In large maps JPS sometimes (handfull out of 1000+ tests) calculates the length of the path incorrectly. The paths are off by only few units or less, so I think the error happens just because of floating point arithmetic.
-
 - JPS stores state in the nodes so all of them have to be reset before it can search for the next path.
-
 - runScenario() method in Scenario class got a bit messy after adding JPS. 
-
+- StringUtil still uses Java's parseInt and parseDouble. These are only used for parsing the files.
 - The program could have included more comparisons. For example some benchmarks on different heuristics.
-
 - There could have been more benchmark info. For example dumbed into a file.
-
 - The program is a bit boring since it doesn't actually show any of the found paths. A GUI and some path finding visualization would have been nice.
 
 ## Sources
 
-- [Introduction to the A* Algorithm](https://www.redblobgames.com/pathfinding/a-star/introduction.html), Red Blob Games
+- [Moving AI Lab](https://movingai.com/), Nathan R. Sturtevant - for the maps used in benchmarks
+- [Introduction to the A* Algorithm](https://www.redblobgames.com/pathfinding/a-star/introduction.html), Red Blob Games (Amit Patel)
+- [Heuristics](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html), Red Blob Games (Amit Patel)
 - [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), Wikipedia
 - [A* search algorithm](https://en.wikipedia.org/wiki/A*_search_algorithm), Wikipedia
+- [A Visual Explanation of Jump Point Search ](https://zerowidth.com/2013/a-visual-explanation-of-jump-point-search.html), Nathan Witmer
+- [Online Graph Pruning for Pathfinding on Grid Maps](http://grastien.net/ban/articles/hg-aaai11.pdf), Daniel Harabor and Alban Grastien
