@@ -1,6 +1,6 @@
 # Testing Document
 
-Report on test coverage can be found [here](https://codecov.io/gh/JakeKallioniemi/shortest-path). **UPDATE**: It looks like codecov stopped working for some reason so I've included a picture of JaCoCo report just in case. The line coverage is 87% and branch coverage is 78%. 
+Report on test coverage can be found [here](https://codecov.io/gh/jakekall/shortest-path). I've also included a picture of JaCoCo report just in case. The line coverage is 87% and branch coverage is 78%. 
 
 ![test coverage](https://github.com/jakekall/shortest-path/blob/master/docs/pics/coverage.PNG)
 
